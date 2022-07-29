@@ -40,3 +40,28 @@ JOIN roles r ON r.id=j."roleId"
 WHERE j.active = true
 GROUP BY r.id
 ORDER BY "maximumSalary" ASC;
+-------------------------------------------------------------------------
+
+## Bônus
+
+SELECT 
+  s.name AS school, 
+  c.name AS course, 
+  COUNT(e.id) AS "studentsCount", 
+  e.status AS "role" 
+FROM 
+  educations e 
+  JOIN schools s ON s.id = e."schoolId" 
+  JOIN courses c ON c.id = e."courseId" 
+WHERE 
+  e.status = 'finished' 
+  OR e.status = 'ongoing' 
+GROUP BY 
+  school, 
+  course, 
+  e.status 
+ORDER BY 
+  "studentsCount" DESC 
+LIMIT 
+  3;
+
